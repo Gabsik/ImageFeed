@@ -3,11 +3,11 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     
-    let imageViewProfile = UIImageView()
-    let nameLabel = UILabel()
-    let loginNameLabel = UILabel()
-    let descriptionLabel = UILabel()
-    let logoutButton = UIButton()
+    private let imageViewProfile = UIImageView()
+    private let nameLabel = UILabel()
+    private let loginNameLabel = UILabel()
+    private let descriptionLabel = UILabel()
+    private let logoutButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ final class ProfileViewController: UIViewController {
     
     private func setupNameLabel() {
         nameLabel.text = "Екатерина Новикова"
-        nameLabel.font = UIFont.systemFont(ofSize: 23)
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 23)
         nameLabel.textColor = UIColor(named: "YP White (iOS)")
         
         view.addSubview(nameLabel)
