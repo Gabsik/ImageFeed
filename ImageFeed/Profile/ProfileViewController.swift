@@ -11,6 +11,7 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addSubviewWithConstraints()
         setupImageView()
         setupNameLabel()
         setupLoginNameLabel()
@@ -18,14 +19,21 @@ final class ProfileViewController: UIViewController {
         setupLogoutButton()
     }
     
+    private func addSubviewWithConstraints() {
+        [nameLabel,
+         imageViewProfile,
+         loginNameLabel,
+         descriptionLabel,
+         logoutButton].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
+    }
+
     private func setupImageView() {
         let profilImage = UIImage(named: "avatar")
         imageViewProfile.image = profilImage
-        
-        view.addSubview(imageViewProfile)
-        
-        imageViewProfile.translatesAutoresizingMaskIntoConstraints = false
-        
+                        
         NSLayoutConstraint.activate([
             imageViewProfile.widthAnchor.constraint(equalToConstant: 70),
             imageViewProfile.heightAnchor.constraint(equalToConstant: 70),
@@ -39,10 +47,6 @@ final class ProfileViewController: UIViewController {
         nameLabel.font = UIFont.boldSystemFont(ofSize: 23)
         nameLabel.textColor = UIColor(named: "YP White (iOS)")
         
-        view.addSubview(nameLabel)
-        
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: imageViewProfile.bottomAnchor, constant: 8),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
@@ -55,10 +59,6 @@ final class ProfileViewController: UIViewController {
         loginNameLabel.font = UIFont.systemFont(ofSize: 13)
         loginNameLabel.textColor = UIColor(named: "YP Gray (iOS)")
         
-        view.addSubview(loginNameLabel)
-        
-        loginNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             loginNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
             loginNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
@@ -70,10 +70,6 @@ final class ProfileViewController: UIViewController {
         descriptionLabel.font = UIFont.systemFont(ofSize: 13)
         descriptionLabel.textColor = UIColor(named: "YP White (iOS)")
         
-        view.addSubview(descriptionLabel)
-        
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             descriptionLabel.topAnchor.constraint(equalTo: loginNameLabel.bottomAnchor, constant: 8),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
@@ -82,10 +78,6 @@ final class ProfileViewController: UIViewController {
     
     private func setupLogoutButton() {
         logoutButton.setImage(UIImage(named: "Exit"), for: .normal)
-        
-        view.addSubview(logoutButton)
-        
-        logoutButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             logoutButton.widthAnchor.constraint(equalToConstant: 44),
