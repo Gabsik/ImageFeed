@@ -16,6 +16,7 @@
 		CE3613922D6B259B0099EBC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE3613912D6B259B0099EBC7 /* Assets.xcassets */; };
 		CE3613952D6B259B0099EBC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE3613932D6B259B0099EBC7 /* LaunchScreen.storyboard */; };
 		CECD5D4F2D80CD6B00F57007 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD5D4E2D80CD6B00F57007 /* ProfileViewController.swift */; };
+		CECD5D512D86BCD500F57007 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD5D502D86BCD500F57007 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		CE3613942D6B259B0099EBC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE3613962D6B259B0099EBC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CECD5D4E2D80CD6B00F57007 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		CECD5D502D86BCD500F57007 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				CE3613912D6B259B0099EBC7 /* Assets.xcassets */,
 				CE3613932D6B259B0099EBC7 /* LaunchScreen.storyboard */,
 				CE3613962D6B259B0099EBC7 /* Info.plist */,
+				CECD5D502D86BCD500F57007 /* Constants.swift */,
 			);
 			path = ImageFeed;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 				CE36138D2D6B25960099EBC7 /* ImagesListViewController.swift in Sources */,
 				CE1C2D2C2D6CCF190085908C /* ImagesListCell.swift in Sources */,
 				CE3613892D6B25960099EBC7 /* AppDelegate.swift in Sources */,
+				CECD5D512D86BCD500F57007 /* Constants.swift in Sources */,
 				CE0DB4F12D734B2D006E3A38 /* SingleImageViewController.swift in Sources */,
 				CE36138B2D6B25960099EBC7 /* SceneDelegate.swift in Sources */,
 			);
