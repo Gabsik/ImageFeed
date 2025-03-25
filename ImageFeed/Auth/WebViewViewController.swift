@@ -1,9 +1,3 @@
-//
-//  WebViewViewController.swift
-//  ImageFeed
-//
-//  Created by User on 18.03.2025.
-//
 
 import UIKit
 import WebKit
@@ -46,8 +40,6 @@ final class WebViewViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // NOTE: Since the class is marked as `final` we don't need to pass a context.
-        // In case of inhertiance context must not be nil.
         webView.addObserver(
             self,
             forKeyPath: #keyPath(WKWebView.estimatedProgress),
@@ -84,7 +76,7 @@ extension WebViewViewController: WKNavigationDelegate {
         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
         if let code = code(from: navigationAction) {
-            //TODO: process code
+            delegate?.webViewViewController(self, didAuthenticateWithCode: code)
             decisionHandler(.cancel)
         } else {
             decisionHandler(.allow)

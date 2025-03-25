@@ -24,6 +24,7 @@
 		CECD5D7E2D917A5000F57007 /* URLSession+data.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD5D7D2D917A5000F57007 /* URLSession+data.swift */; };
 		CECD5D802D917C1300F57007 /* OAuth2TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD5D7F2D917C1300F57007 /* OAuth2TokenStorage.swift */; };
 		CECD5D842D91968700F57007 /* OAuthTokenResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD5D832D91968700F57007 /* OAuthTokenResponseBody.swift */; };
+		CECD5D862D93233700F57007 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD5D852D93233700F57007 /* SplashViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		CECD5D7D2D917A5000F57007 /* URLSession+data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+data.swift"; sourceTree = "<group>"; };
 		CECD5D7F2D917C1300F57007 /* OAuth2TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2TokenStorage.swift; sourceTree = "<group>"; };
 		CECD5D832D91968700F57007 /* OAuthTokenResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthTokenResponseBody.swift; sourceTree = "<group>"; };
+		CECD5D852D93233700F57007 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +89,6 @@
 		CE36137C2D6B25960099EBC7 = {
 			isa = PBXGroup;
 			children = (
-				CECD5D7D2D917A5000F57007 /* URLSession+data.swift */,
 				CE3613872D6B25960099EBC7 /* ImageFeed */,
 				CE3613862D6B25960099EBC7 /* Products */,
 			);
@@ -107,6 +108,8 @@
 				CE3613882D6B25960099EBC7 /* AppDelegate.swift */,
 				CECD5D502D86BCD500F57007 /* Constants.swift */,
 				CE36138A2D6B25960099EBC7 /* SceneDelegate.swift */,
+				CECD5D852D93233700F57007 /* SplashViewController.swift */,
+				CECD5D7D2D917A5000F57007 /* URLSession+data.swift */,
 				CECD5D542D89D14C00F57007 /* Auth */,
 				CE0DB5132D7469B9006E3A38 /* SingleImageView */,
 				CE0DB5122D74697A006E3A38 /* Profile */,
@@ -220,6 +223,7 @@
 				CECD5D532D89D0EB00F57007 /* AuthViewController.swift in Sources */,
 				CECD5D512D86BCD500F57007 /* Constants.swift in Sources */,
 				CECD5D7E2D917A5000F57007 /* URLSession+data.swift in Sources */,
+				CECD5D862D93233700F57007 /* SplashViewController.swift in Sources */,
 				CE0DB4F12D734B2D006E3A38 /* SingleImageViewController.swift in Sources */,
 				CECD5D842D91968700F57007 /* OAuthTokenResponseBody.swift in Sources */,
 				CECD5D582D89D45700F57007 /* WebViewViewController.swift in Sources */,
