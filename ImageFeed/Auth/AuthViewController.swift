@@ -7,8 +7,8 @@ protocol AuthViewControllerDelegate: AnyObject {
 
 final class AuthViewController: UIViewController {
     
-    private let ShowWebViewSegueIdentifier = "ShowWebView"
-    private let authService = OAuth2Service()
+    private let showWebViewSegueIdentifier = "ShowWebView"
+    private let authService = OAuth2Service.shred
     
     weak var delegate: AuthViewControllerDelegate?
     
@@ -38,20 +38,8 @@ extension AuthViewController: WebViewViewControllerDelegate {
             guard let self = self else { return }
             print("Получен код авторизации: \(code)")
             
-            // Передаем код в делегат (SplashViewController)
             self.delegate?.authViewController(self, didAuthenticateWithCode: code)
         }
-        //        delegate?.authViewController(self, didAuthenticateWithCode: code)
-        //
-        //        authService.fetchOAuthToken(code) { result in
-        //            switch result {
-        //            case .success(let token):
-        //                print("Токен успешно получен: \(token)")
-        //            case .failure(let error):
-        //                print("Ошибка получения токена: \(error)")
-        //            }
-        //        }
-        
     }
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {

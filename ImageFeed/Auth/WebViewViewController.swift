@@ -4,7 +4,7 @@ import WebKit
 
 final class WebViewViewController: UIViewController {
     
-    @IBOutlet weak var webView: WKWebView!
+    @IBOutlet private var webView: WKWebView!
     weak var delegate: WebViewViewControllerDelegate?
     @IBOutlet private var progressView: UIProgressView!
     
