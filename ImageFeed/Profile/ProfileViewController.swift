@@ -8,6 +8,8 @@ final class ProfileViewController: UIViewController {
     private let loginNameLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let logoutButton = UIButton()
+    private let tokenStorage = OAuth2TokenStorage()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +19,7 @@ final class ProfileViewController: UIViewController {
         setupLoginNameLabel()
         setupDescriptionLabel()
         setupLogoutButton()
+        fetchProfile()
     }
     
     private func addSubviewWithConstraints() {
@@ -29,11 +32,11 @@ final class ProfileViewController: UIViewController {
             view.addSubview($0)
         }
     }
-
+    
     private func setupImageView() {
         let profilImage = UIImage(named: "avatar")
         imageViewProfile.image = profilImage
-                        
+        
         NSLayoutConstraint.activate([
             imageViewProfile.widthAnchor.constraint(equalToConstant: 70),
             imageViewProfile.heightAnchor.constraint(equalToConstant: 70),
@@ -86,4 +89,27 @@ final class ProfileViewController: UIViewController {
             logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
     }
+    private func fetchProfile() {
+        guard let token = tokenStorage.token else {
+            print("Токен не найден")
+            return
+        }
+        
+        ProfileService.shared.fetchProfile(token) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let profile):
+                self.updateProfileLabels(with: profile)
+            case .failure(let error):
+                print("Ошибка при получении профиля: \(error.localizedDescription)")
+            }
+        }
+    }
+    private func updateProfileLabels(with profile: ProfileService.Profile) {
+        nameLabel.text = profile.name
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
+    }
+    
 }

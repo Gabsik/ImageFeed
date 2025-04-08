@@ -1,19 +1,42 @@
 import Foundation
 import UIKit
 
+enum AuthServiceError: Error {
+    case invalidRequest
+}
+
 final class OAuth2Service {
-    static let shred = OAuth2Service()
+    static let shared = OAuth2Service()
     private init() {}
     private let tokenStorage = OAuth2TokenStorage()
     
+    
+    private let urlSession = URLSession.shared
+    private var task: URLSessionTask?
+    private var lastCode: String?
+    
     func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
+        assert(Thread.isMainThread)
+        if task != nil {
+            if lastCode != code {
+                task?.cancel()
+            } else {
+                completion(.failure(AuthServiceError.invalidRequest))
+                return
+            }
+        } else {
+            if lastCode == code {
+                completion(.failure(AuthServiceError.invalidRequest))
+                return
+            }
+        }
+        lastCode = code
         guard let request = makeOAuthTokenRequest(code: code) else {
-            let error = NSError(domain: "OAuthError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Не удалось создать запрос на получение токена"])
-            completion(.failure(error))
+            completion(.failure(AuthServiceError.invalidRequest))
             return
         }
         
-        let task = URLSession.shared.data(for: request) { result in
+        let task = urlSession.data(for: request) { result in
             switch result {
             case .success(let data):
                 do {
@@ -29,7 +52,10 @@ final class OAuth2Service {
                 print("Ошибка сети: \(error)")
                 completion(.failure(error))
             }
+            self.task = nil
+            self.lastCode = nil
         }
+        self.task = task
         task.resume()
     }
     

@@ -1,5 +1,6 @@
 
 import UIKit
+import ProgressHUD
 
 protocol AuthViewControllerDelegate: AnyObject {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String)
@@ -8,7 +9,7 @@ protocol AuthViewControllerDelegate: AnyObject {
 final class AuthViewController: UIViewController {
     
     private let showWebViewSegueIdentifier = "ShowWebView"
-    private let authService = OAuth2Service.shred
+    private let authService = OAuth2Service.shared
     
     weak var delegate: AuthViewControllerDelegate?
     
@@ -31,14 +32,16 @@ final class AuthViewController: UIViewController {
 }
 
 extension AuthViewController: WebViewViewControllerDelegate {
-    
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
         
         dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
+            UIBlockingProgressHUD.show()
             print("Получен код авторизации: \(code)")
             
             self.delegate?.authViewController(self, didAuthenticateWithCode: code)
+    
+            UIBlockingProgressHUD.dismiss()
         }
     }
     

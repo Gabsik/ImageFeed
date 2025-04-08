@@ -1,0 +1,98 @@
+
+import Foundation
+
+enum ProfileServiceError: Error {
+    case invalidRequest
+    case missingToken
+}
+
+final class ProfileService {
+    static let shared = ProfileService()
+    private init() {}
+    
+    private var task: URLSessionTask?
+    private(set) var profile: Profile?
+    private let urlSession = URLSession.shared
+    private var currentToken: String?
+    private let tokenStorage = OAuth2TokenStorage()
+    
+    struct ProfileResult: Codable {
+        let username: String
+        let bio: String?
+        let firstName: String
+        let lastName: String
+        
+        enum CodingKeys: String, CodingKey {
+            case username
+            case bio
+            case firstName = "first_name"
+            case lastName = "last_name"
+        }
+    }
+    
+    struct Profile {
+        let username: String
+        let name: String
+        let loginName: String
+        let bio: String?
+        
+        init(from result: ProfileResult) {
+            self.username = result.username
+            self.name = "\(result.firstName) \(result.lastName)"
+            self.loginName = "@\(result.username)"
+            self.bio = result.bio
+        }
+    }
+    
+    func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
+        assert(Thread.isMainThread)
+        
+        if task != nil {
+            if currentToken != token {
+                task?.cancel()
+            } else {
+                return
+            }
+        }
+        currentToken = token
+        
+        guard let request = makeProfileRequest(token: token) else {
+            completion(.failure(ProfileServiceError.invalidRequest))
+            return
+        }
+        
+        task = urlSession.data(for: request) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let data):
+                do {
+                    print(String(data: data, encoding: .utf8) ?? "Не удалось преобразовать в строку")
+                    
+                    let profileResult = try JSONDecoder().decode(ProfileResult.self, from: data)
+                    let profile = Profile(from: profileResult)
+                    completion(.success(profile))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            self.task = nil
+            self.currentToken = nil
+        }
+        task?.resume()
+    }
+    
+    private func makeProfileRequest(token: String) -> URLRequest? {
+        guard let url = URL(string: "https://api.unsplash.com/me") else {
+            print("Ошибка: не удалось создать URL профиля")
+            return nil
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+}
