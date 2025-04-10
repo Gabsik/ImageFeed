@@ -3,7 +3,7 @@ import UIKit
 import ProgressHUD
 
 protocol AuthViewControllerDelegate: AnyObject {
-    func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String)
+    func didAuthenticate(_ vc: AuthViewController)
 }
 
 final class AuthViewController: UIViewController {
@@ -34,18 +34,31 @@ final class AuthViewController: UIViewController {
 extension AuthViewController: WebViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
         
-        dismiss(animated: true) { [weak self] in
+        dismiss(animated: true)
+        ProgressHUD.show()
+        fetchOAuthToken(code) { [weak self] result in
             guard let self = self else { return }
-            UIBlockingProgressHUD.show()
-            print("Получен код авторизации: \(code)")
+            ProgressHUD.dismiss()
             
-            self.delegate?.authViewController(self, didAuthenticateWithCode: code)
-    
-            UIBlockingProgressHUD.dismiss()
+            switch result {
+            case .success:
+                self.delegate?.didAuthenticate(self)
+            case .failure(let error):
+                print("Ошибка при получении токена: \(error.localizedDescription)")
+            }
         }
     }
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
         dismiss(animated: true)
+    }
+}
+
+extension AuthViewController {
+    
+    private func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
+        authService.fetchOAuthToken(code) { result in
+            completion(result)
+        }
     }
 }

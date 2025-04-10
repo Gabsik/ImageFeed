@@ -19,7 +19,10 @@ final class ProfileViewController: UIViewController {
         setupLoginNameLabel()
         setupDescriptionLabel()
         setupLogoutButton()
-        fetchProfile()
+        
+        if let profile = ProfileService.shared.profile {
+            updateProfileDetails(profile: profile)
+        }
     }
     
     private func addSubviewWithConstraints() {
@@ -89,27 +92,10 @@ final class ProfileViewController: UIViewController {
             logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
     }
-    private func fetchProfile() {
-        guard let token = tokenStorage.token else {
-            print("Токен не найден")
-            return
-        }
-        
-        ProfileService.shared.fetchProfile(token) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let profile):
-                self.updateProfileLabels(with: profile)
-            case .failure(let error):
-                print("Ошибка при получении профиля: \(error.localizedDescription)")
-            }
-        }
-    }
-    private func updateProfileLabels(with profile: ProfileService.Profile) {
+    
+    private func updateProfileDetails(profile: ProfileService.Profile) {
         nameLabel.text = profile.name
         loginNameLabel.text = profile.loginName
         descriptionLabel.text = profile.bio
     }
-    
 }

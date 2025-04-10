@@ -10,6 +10,7 @@ final class ProfileService {
     static let shared = ProfileService()
     private init() {}
     
+    
     private var task: URLSessionTask?
     private(set) var profile: Profile?
     private let urlSession = URLSession.shared
@@ -67,10 +68,9 @@ final class ProfileService {
             switch result {
             case .success(let data):
                 do {
-                    print(String(data: data, encoding: .utf8) ?? "Не удалось преобразовать в строку")
-                    
                     let profileResult = try JSONDecoder().decode(ProfileResult.self, from: data)
                     let profile = Profile(from: profileResult)
+                    self.profile = profile
                     completion(.success(profile))
                 } catch {
                     completion(.failure(error))
