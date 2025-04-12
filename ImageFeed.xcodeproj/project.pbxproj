@@ -17,6 +17,7 @@
 		CE3613952D6B259B0099EBC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE3613932D6B259B0099EBC7 /* LaunchScreen.storyboard */; };
 		CE4DAEA12DA144E500670F86 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DAEA02DA144E500670F86 /* UIBlockingProgressHUD.swift */; };
 		CE4DAEA32DA14F6B00670F86 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DAEA22DA14F6A00670F86 /* ProfileService.swift */; };
+		CE4DAEA52DA9883A00670F86 /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DAEA42DA9883A00670F86 /* ProfileImageService.swift */; };
 		CE603B892D9C5B3D0030C315 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = CE603B882D9C5B3D0030C315 /* ProgressHUD */; };
 		CECD5D4F2D80CD6B00F57007 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD5D4E2D80CD6B00F57007 /* ProfileViewController.swift */; };
 		CECD5D512D86BCD500F57007 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD5D502D86BCD500F57007 /* Constants.swift */; };
@@ -43,6 +44,7 @@
 		CE3613962D6B259B0099EBC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE4DAEA02DA144E500670F86 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		CE4DAEA22DA14F6A00670F86 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		CE4DAEA42DA9883A00670F86 /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
 		CECD5D4E2D80CD6B00F57007 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CECD5D502D86BCD500F57007 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CECD5D522D89D0EB00F57007 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				CECD5D7B2D9178CD00F57007 /* OAuth2Service.swift */,
 				CECD5D7F2D917C1300F57007 /* OAuth2TokenStorage.swift */,
 				CE4DAEA22DA14F6A00670F86 /* ProfileService.swift */,
+				CE4DAEA42DA9883A00670F86 /* ProfileImageService.swift */,
 			);
 			path = "New ServiceAccessLayer";
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				CE0DB4F12D734B2D006E3A38 /* SingleImageViewController.swift in Sources */,
 				CECD5D842D91968700F57007 /* OAuthTokenResponseBody.swift in Sources */,
 				CECD5D582D89D45700F57007 /* WebViewViewController.swift in Sources */,
+				CE4DAEA52DA9883A00670F86 /* ProfileImageService.swift in Sources */,
 				CECD5D802D917C1300F57007 /* OAuth2TokenStorage.swift in Sources */,
 				CE36138B2D6B25960099EBC7 /* SceneDelegate.swift in Sources */,
 			);

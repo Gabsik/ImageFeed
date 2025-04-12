@@ -48,14 +48,7 @@ final class ProfileService {
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
         assert(Thread.isMainThread)
         
-        if task != nil {
-            if currentToken != token {
-                task?.cancel()
-            } else {
-                return
-            }
-        }
-        currentToken = token
+        task?.cancel()
         
         guard let request = makeProfileRequest(token: token) else {
             completion(.failure(ProfileServiceError.invalidRequest))
