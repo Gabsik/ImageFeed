@@ -9,9 +9,7 @@ final class SplashViewController: UIViewController {
     private let oauth2Service = OAuth2Service.shared
     private let oauth2TokenStorage = OAuth2TokenStorage()
     private let profileService = ProfileService.shared
-    
-    //let UIBlockingProgressHUD = ProgressHUD.colorProgress = .systemRed
-    
+        
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -78,6 +76,7 @@ extension SplashViewController: AuthViewControllerDelegate {
             case .success(let profile):
                 self.switchToTabBarController()
                 print("Профиль получен: \(profile)")
+                ProfileImageService.shared.fetchProfileImageURL(username: profile.username) { _ in}
             case .failure(let error):
                 print("Ошибка при получении профиля: \(error.localizedDescription)")
             }
