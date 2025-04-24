@@ -16,6 +16,8 @@ final class ProfileImageService {
     private let tokenStorage = OAuth2TokenStorage()
     private let urlSession = URLSession.shared
     
+    static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
+    
     struct UserResult: Codable {
         let profileImage: ProfileImage
         
@@ -45,27 +47,27 @@ final class ProfileImageService {
         request.httpMethod = "GET"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
-        task = urlSession.dataTask(with: request) { [ weak self ] data, response, error in
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-                
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                guard
-                    let data = data,
-                    let userResult = try? JSONDecoder().decode(UserResult.self, from: data)
-                else {
-                    completion(.failure(ProfileImageServiceError.decodingFailed))
-                    return
-                }
-                
+        task = urlSession.objectTask(for: request) { [weak self] (result: Result<UserResult, Error>) in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let userResult):
                 let avatarURL = userResult.profileImage.small
                 self.avatarURL = avatarURL
                 completion(.success(avatarURL))
+                
+                NotificationCenter.default.post(
+                    name: ProfileImageService.didChangeNotification,
+                    object: self,
+                    userInfo: ["URL": avatarURL]
+                )
+                
+            case .failure(let error):
+                completion(.failure(error))
+                print("[ProfileImageService.fetchProfileImageURL]: Ошибка загрузки URL — \(error.localizedDescription)")
             }
         }
+        
         task?.resume()
     }
 }

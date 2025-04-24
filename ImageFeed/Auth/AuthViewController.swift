@@ -16,8 +16,8 @@ final class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBackButton()
-        
     }
+    
     private func configureBackButton() {
         navigationController?.navigationBar.backIndicatorImage = UIImage(named: "nav_back_button")
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "nav_back_button")
@@ -44,11 +44,11 @@ extension AuthViewController: WebViewViewControllerDelegate {
             case .success:
                 self.delegate?.didAuthenticate(self)
             case .failure(let error):
-                print("Ошибка при получении токена: \(error.localizedDescription)")
+                print("[AuthViewController]: Ошибка авторизации - \(error.localizedDescription)")
+                self.showLoginErrorAlert()
             }
         }
     }
-    
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
         dismiss(animated: true)
     }
@@ -60,5 +60,17 @@ extension AuthViewController {
         authService.fetchOAuthToken(code) { result in
             completion(result)
         }
+    }
+}
+
+extension AuthViewController {
+    private func showLoginErrorAlert() {
+        let alert = UIAlertController(
+            title: "Что-то пошло не так",
+            message: "Не удалось войти в систему",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }

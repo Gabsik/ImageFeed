@@ -55,21 +55,17 @@ final class ProfileService {
             return
         }
         
-        task = urlSession.data(for: request) { [weak self] result in
+        task = urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
             guard let self = self else { return }
             
             switch result {
-            case .success(let data):
-                do {
-                    let profileResult = try JSONDecoder().decode(ProfileResult.self, from: data)
-                    let profile = Profile(from: profileResult)
-                    self.profile = profile
-                    completion(.success(profile))
-                } catch {
-                    completion(.failure(error))
-                }
+            case .success(let profileResult):
+                let profile = Profile(from: profileResult)
+                self.profile = profile
+                completion(.success(profile))
             case .failure(let error):
                 completion(.failure(error))
+                print("[ProfileService.fetchProfile]: Ошибка получения профиля — \(error.localizedDescription)")
             }
             self.task = nil
             self.currentToken = nil

@@ -36,25 +36,20 @@ final class OAuth2Service {
             return
         }
         
-        let task = urlSession.data(for: request) { result in
+        let task = urlSession.objectTask(for: request) { (result: Result<OAuthTokenResponseBody, Error>) in
             switch result {
-            case .success(let data):
-                do {
-                    let tokenResponse = try JSONDecoder().decode(OAuthTokenResponseBody.self, from: data)
-                    self.tokenStorage.token = tokenResponse.accessToken
-                    print("Успешно получен и сохранен токен: \(tokenResponse.accessToken)")
-                    completion(.success(tokenResponse.accessToken))
-                } catch {
-                    print("Ошибка декодирования JSON: \(error)")
-                    completion(.failure(error))
-                }
+            case .success(let tokenResponse):
+                self.tokenStorage.token = tokenResponse.accessToken
+                print("Успешно получен и сохранен токен: \(tokenResponse.accessToken)")
+                completion(.success(tokenResponse.accessToken))
             case .failure(let error):
-                print("Ошибка сети: \(error)")
+                print("[OAuth2Service.fetchOAuthToken]: Ошибка получения токена — \(error.localizedDescription)")
                 completion(.failure(error))
             }
             self.task = nil
             self.lastCode = nil
         }
+        
         self.task = task
         task.resume()
     }
