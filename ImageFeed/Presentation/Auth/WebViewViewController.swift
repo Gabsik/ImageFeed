@@ -54,8 +54,8 @@ final class WebViewViewController: UIViewController {
         estimatedProgressObservation = webView.observe(
             \.estimatedProgress,
              options: [.new]) { [weak self] webView, change in
-            self?.updateProgress()
-        }
+                 self?.updateProgress()
+             }
     }
     
     private func removeProgressObserver() {

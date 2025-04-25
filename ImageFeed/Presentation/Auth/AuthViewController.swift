@@ -16,6 +16,7 @@ final class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBackButton()
+        view.backgroundColor = UIColor(named: "YP Black (iOS)")
     }
     
     private func configureBackButton() {
@@ -55,7 +56,6 @@ extension AuthViewController: WebViewViewControllerDelegate {
 }
 
 extension AuthViewController {
-    
     private func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
         authService.fetchOAuthToken(code) { result in
             completion(result)

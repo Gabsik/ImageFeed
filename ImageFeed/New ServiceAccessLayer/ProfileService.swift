@@ -10,7 +10,6 @@ final class ProfileService {
     static let shared = ProfileService()
     private init() {}
     
-    
     private var task: URLSessionTask?
     private(set) var profile: Profile?
     private let urlSession = URLSession.shared

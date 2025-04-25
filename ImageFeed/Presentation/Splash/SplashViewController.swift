@@ -4,19 +4,29 @@ import ProgressHUD
 
 final class SplashViewController: UIViewController {
     
-    private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
-    
     private let oauth2Service = OAuth2Service.shared
     private let oauth2TokenStorage = OAuth2TokenStorage()
     private let profileService = ProfileService.shared
-        
+    
+    private let splashScreenLogoImageView = UIImageView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setting()
+        view.backgroundColor = UIColor(named: "YP Black (iOS)")
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if let token =  oauth2TokenStorage.token {
             fetchProfile(token)
         } else {
-            performSegue(withIdentifier: showAuthenticationScreenSegueIdentifier, sender: nil)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as! AuthViewController
+            authViewController.delegate = self
+            authViewController.modalPresentationStyle = .fullScreen
+            present(authViewController, animated: true)
         }
     }
     
@@ -34,23 +44,6 @@ final class SplashViewController: UIViewController {
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
             .instantiateViewController(withIdentifier: "TabBarViewController")
         window.rootViewController = tabBarController
-    }
-}
-
-extension SplashViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == showAuthenticationScreenSegueIdentifier {
-            guard
-                let navigationController = segue.destination as? UINavigationController,
-                let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else {
-                assertionFailure("Failed to prepare for \(showAuthenticationScreenSegueIdentifier)")
-                return
-            }
-            viewController.delegate = self
-        } else {
-            super.prepare(for: segue, sender: sender)
-        }
     }
 }
 
@@ -81,5 +74,20 @@ extension SplashViewController: AuthViewControllerDelegate {
                 print("Ошибка при получении профиля: \(error.localizedDescription)")
             }
         }
+    }
+}
+
+extension SplashViewController {
+    private func setting() {
+        splashScreenLogoImageView.image = UIImage(named: "splash_screen_logo")
+        splashScreenLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+        splashScreenLogoImageView.contentMode = .scaleToFill
+        
+        view.addSubview(splashScreenLogoImageView)
+        
+        NSLayoutConstraint.activate([
+            splashScreenLogoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            splashScreenLogoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
 }

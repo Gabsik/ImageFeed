@@ -103,8 +103,6 @@
 		CE36137C2D6B25960099EBC7 = {
 			isa = PBXGroup;
 			children = (
-				CE8E81B12DBB829B00EDD0B9 /* TabBarController.swift */,
-				CE4DAEA02DA144E500670F86 /* UIBlockingProgressHUD.swift */,
 				CE3613872D6B25960099EBC7 /* ImageFeed */,
 				CE3613862D6B25960099EBC7 /* Products */,
 			);
@@ -121,29 +119,63 @@
 		CE3613872D6B25960099EBC7 /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
-				CE3613882D6B25960099EBC7 /* AppDelegate.swift */,
-				CECD5D502D86BCD500F57007 /* Constants.swift */,
-				CE36138A2D6B25960099EBC7 /* SceneDelegate.swift */,
-				CECD5D852D93233700F57007 /* SplashViewController.swift */,
-				CECD5D7D2D917A5000F57007 /* URLSession+data.swift */,
-				CECD5D542D89D14C00F57007 /* Auth */,
-				CE0DB5132D7469B9006E3A38 /* SingleImageView */,
-				CE0DB5122D74697A006E3A38 /* Profile */,
-				CE1C2D2D2D6CCF520085908C /* ImagesList */,
+				CE8E81B62DBBD5DC00EDD0B9 /* App */,
+				CE8E81B42DBBD4EC00EDD0B9 /* Presentation */,
 				CECD5D812D917C3800F57007 /* New ServiceAccessLayer */,
+				CE8E81B32DBBD4AD00EDD0B9 /* Resources */,
+			);
+			path = ImageFeed;
+			sourceTree = "<group>";
+		};
+		CE8E81B32DBBD4AD00EDD0B9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				CE3613912D6B259B0099EBC7 /* Assets.xcassets */,
 				CE36138E2D6B25960099EBC7 /* Main.storyboard */,
 				CE3613932D6B259B0099EBC7 /* LaunchScreen.storyboard */,
 				CE3613962D6B259B0099EBC7 /* Info.plist */,
-				CECD5D592D89EF3800F57007 /* WebViewViewControllerDelegate.swift */,
 			);
-			path = ImageFeed;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CE8E81B42DBBD4EC00EDD0B9 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				CE0DB5132D7469B9006E3A38 /* SingleImageView */,
+				CE1C2D2D2D6CCF520085908C /* ImagesList */,
+				CE0DB5122D74697A006E3A38 /* Profile */,
+				CECD5D542D89D14C00F57007 /* Auth */,
+				CE8E81B52DBBD50800EDD0B9 /* Splash */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		CE8E81B52DBBD50800EDD0B9 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				CECD5D852D93233700F57007 /* SplashViewController.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		CE8E81B62DBBD5DC00EDD0B9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				CE3613882D6B25960099EBC7 /* AppDelegate.swift */,
+				CECD5D502D86BCD500F57007 /* Constants.swift */,
+				CE36138A2D6B25960099EBC7 /* SceneDelegate.swift */,
+				CECD5D7D2D917A5000F57007 /* URLSession+data.swift */,
+				CE8E81B12DBB829B00EDD0B9 /* TabBarController.swift */,
+				CE4DAEA02DA144E500670F86 /* UIBlockingProgressHUD.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 		CECD5D542D89D14C00F57007 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
 				CECD5D522D89D0EB00F57007 /* AuthViewController.swift */,
+				CECD5D592D89EF3800F57007 /* WebViewViewControllerDelegate.swift */,
 				CECD5D572D89D45700F57007 /* WebViewViewController.swift */,
 			);
 			path = Auth;
