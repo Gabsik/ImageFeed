@@ -1,5 +1,6 @@
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
@@ -21,6 +22,7 @@ final class ProfileViewController: UIViewController {
         setupLoginNameLabel()
         setupDescriptionLabel()
         setupLogoutButton()
+        view.backgroundColor = UIColor(named: "YP Black (iOS)")
         
         if let profile = ProfileService.shared.profile {
             updateProfileDetails(profile: profile)
@@ -116,6 +118,11 @@ final class ProfileViewController: UIViewController {
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)
         else { return }
-        // TODO [Sprint 11] Обновить аватар, используя Kingfisher
+        
+        imageViewProfile.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "placeholder"),
+            options: [.transition(.fade(0.2))]
+        )
     }
 }
