@@ -9,15 +9,6 @@ enum ProfileImageServiceError: Error {
 
 final class ProfileImageService {
     
-    static let shared = ProfileImageService()
-    private init() {}
-    private (set) var avatarURL: String?
-    private var task: URLSessionTask?
-    private let tokenStorage = OAuth2TokenStorage()
-    private let urlSession = URLSession.shared
-    
-    static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
-    
     struct UserResult: Codable {
         let profileImage: ProfileImage
         
@@ -28,6 +19,15 @@ final class ProfileImageService {
     struct ProfileImage: Codable {
         let small: String
     }
+    
+    static let shared = ProfileImageService()
+    private (set) var avatarURL: String?
+    private var task: URLSessionTask?
+    private let tokenStorage = OAuth2TokenStorage()
+    private let urlSession = URLSession.shared
+    static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
+    
+    private init() {}
     
     func fetchProfileImageURL(username: String, _ completion: @escaping (Result<String, Error>) -> Void) {
         assert(Thread.isMainThread)
