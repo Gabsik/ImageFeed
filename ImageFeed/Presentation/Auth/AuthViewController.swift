@@ -10,6 +10,7 @@ final class AuthViewController: UIViewController {
     
     private let showWebViewSegueIdentifier = "ShowWebView"
     private let authService = OAuth2Service.shared
+    private var isLoading = false
     
     weak var delegate: AuthViewControllerDelegate?
     
@@ -35,11 +36,25 @@ final class AuthViewController: UIViewController {
 extension AuthViewController: WebViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
         
-        dismiss(animated: true)
-        ProgressHUD.show()
-        fetchOAuthToken(code) { [weak self] result in
+        
+        dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
-            ProgressHUD.dismiss()
+            self.showLoading()
+            self.fetchOAuthToken(code)
+        }
+    }
+    
+    func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
+        dismiss(animated: true)
+    }
+}
+
+extension AuthViewController {
+    private func fetchOAuthToken(_ code: String) {
+        authService.fetchOAuthToken(code) { [weak self] result in
+            guard let self = self else { return }
+            
+            self.hideLoading()
             
             switch result {
             case .success:
@@ -50,27 +65,29 @@ extension AuthViewController: WebViewViewControllerDelegate {
             }
         }
     }
-    func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
-        dismiss(animated: true)
-    }
-}
-
-extension AuthViewController {
-    private func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
-        authService.fetchOAuthToken(code) { result in
-            completion(result)
-        }
-    }
 }
 
 extension AuthViewController {
     private func showLoginErrorAlert() {
+        print("[AuthViewController]: Показываем алерт об ошибке входа")
         let alert = UIAlertController(
-            title: "Что-то пошло не так",
+            title: "Что-то пошло не так(",
             message: "Не удалось войти в систему",
             preferredStyle: .alert
         )
         alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension AuthViewController {
+    private func showLoading() {
+        isLoading = true
+        ProgressHUD.show()
+    }
+    
+    private func hideLoading() {
+        isLoading = false
+        ProgressHUD.dismiss()
     }
 }

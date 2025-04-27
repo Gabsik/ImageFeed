@@ -119,6 +119,7 @@
 		CE3613872D6B25960099EBC7 /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				CE3613962D6B259B0099EBC7 /* Info.plist */,
 				CE8E81B62DBBD5DC00EDD0B9 /* App */,
 				CE8E81B42DBBD4EC00EDD0B9 /* Presentation */,
 				CECD5D812D917C3800F57007 /* New ServiceAccessLayer */,
@@ -133,7 +134,6 @@
 				CE3613912D6B259B0099EBC7 /* Assets.xcassets */,
 				CE36138E2D6B25960099EBC7 /* Main.storyboard */,
 				CE3613932D6B259B0099EBC7 /* LaunchScreen.storyboard */,
-				CE3613962D6B259B0099EBC7 /* Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";

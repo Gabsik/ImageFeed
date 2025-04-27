@@ -16,6 +16,8 @@ final class ProfileService {
     private var currentToken: String?
     private let tokenStorage = OAuth2TokenStorage()
     
+    static let profileDidChange = Notification.Name("ProfileDidChange")
+    
     struct ProfileResult: Codable {
         let username: String
         let bio: String?
@@ -62,6 +64,7 @@ final class ProfileService {
                 let profile = Profile(from: profileResult)
                 self.profile = profile
                 completion(.success(profile))
+                NotificationCenter.default.post(name: ProfileService.profileDidChange, object: nil)
             case .failure(let error):
                 completion(.failure(error))
                 print("[ProfileService.fetchProfile]: Ошибка получения профиля — \(error.localizedDescription)")

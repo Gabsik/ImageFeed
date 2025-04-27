@@ -23,7 +23,10 @@ final class SplashViewController: UIViewController {
             fetchProfile(token)
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as! AuthViewController
+            guard let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController else {
+                assertionFailure("Unable to instantiate AuthViewController")
+                return
+            }
             authViewController.delegate = self
             authViewController.modalPresentationStyle = .fullScreen
             present(authViewController, animated: true)
@@ -72,6 +75,7 @@ extension SplashViewController: AuthViewControllerDelegate {
                 ProfileImageService.shared.fetchProfileImageURL(username: profile.username) { _ in}
             case .failure(let error):
                 print("Ошибка при получении профиля: \(error.localizedDescription)")
+                self.showProfileLoadError()
             }
         }
     }
@@ -89,5 +93,16 @@ extension SplashViewController {
             splashScreenLogoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             splashScreenLogoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+    
+    private func showProfileLoadError() {
+        print("[SplashViewController]: Показываем алерт об ошибке ")
+        let alert = UIAlertController(
+            title: "Что-то пошло не так(",
+            message: "Не удалось войти в систему",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "Ок", style: .default))
+        self.present(alert, animated: true)
     }
 }
