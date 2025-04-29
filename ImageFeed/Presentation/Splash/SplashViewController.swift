@@ -7,6 +7,7 @@ final class SplashViewController: UIViewController {
     private let oauth2Service = OAuth2Service.shared
     private let oauth2TokenStorage = OAuth2TokenStorage()
     private let profileService = ProfileService.shared
+    private var isProfileLoaded = false
     
     private let splashScreenLogoImageView = UIImageView()
     
@@ -70,12 +71,19 @@ extension SplashViewController: AuthViewControllerDelegate {
             
             switch result {
             case .success(let profile):
-                self.switchToTabBarController()
                 print("Профиль получен: \(profile)")
-                ProfileImageService.shared.fetchProfileImageURL(username: profile.username) { _ in}
-            case .failure(let error):
-                print("Ошибка при получении профиля: \(error.localizedDescription)")
-                self.showProfileLoadError()
+                ProfileImageService.shared.fetchProfileImageURL(username: profile.username) { result in
+                    switch result {
+                    case.success(let smalImage):
+                        print(smalImage)
+                    case.failure(let error):
+                        print("[SplashViewController] - \(error.localizedDescription)")
+                    }
+                }
+                self.switchToTabBarController()
+            case.failure:
+                print("[SplashViewController] - ошибка загрузка профиля")
+                break
             }
         }
     }
@@ -93,16 +101,5 @@ extension SplashViewController {
             splashScreenLogoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             splashScreenLogoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
-    }
-    
-    private func showProfileLoadError() {
-        print("[SplashViewController]: Показываем алерт об ошибке ")
-        let alert = UIAlertController(
-            title: "Что-то пошло не так(",
-            message: "Не удалось войти в систему",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "Ок", style: .default))
-        self.present(alert, animated: true)
     }
 }

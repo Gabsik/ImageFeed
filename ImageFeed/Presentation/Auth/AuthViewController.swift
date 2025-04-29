@@ -10,6 +10,7 @@ final class AuthViewController: UIViewController {
     
     private let showWebViewSegueIdentifier = "ShowWebView"
     private let authService = OAuth2Service.shared
+    private let oauth2TokenStorage = OAuth2TokenStorage()
     private var isLoading = false
     
     weak var delegate: AuthViewControllerDelegate?
@@ -36,11 +37,21 @@ final class AuthViewController: UIViewController {
 extension AuthViewController: WebViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
         
+        vc.dismiss(animated: true)
+        showLoading()
         
-        dismiss(animated: true) { [weak self] in
+        authService.fetchOAuthToken(code: code) { [weak self] token in
             guard let self = self else { return }
-            self.showLoading()
-            self.fetchOAuthToken(code)
+            
+            self.hideLoading()
+            switch token {
+            case .success(let result):
+                self.oauth2TokenStorage.token = result
+                self.delegate?.didAuthenticate(self)
+            case .failure(let error):
+                print("[AuthViewController]: Ошибка авторизации - \(error.localizedDescription)")
+                self.showLoginErrorAlert()
+            }
         }
     }
     
@@ -50,28 +61,10 @@ extension AuthViewController: WebViewViewControllerDelegate {
 }
 
 extension AuthViewController {
-    private func fetchOAuthToken(_ code: String) {
-        authService.fetchOAuthToken(code) { [weak self] result in
-            guard let self = self else { return }
-            
-            self.hideLoading()
-            
-            switch result {
-            case .success:
-                self.delegate?.didAuthenticate(self)
-            case .failure(let error):
-                print("[AuthViewController]: Ошибка авторизации - \(error.localizedDescription)")
-                self.showLoginErrorAlert()
-            }
-        }
-    }
-}
-
-extension AuthViewController {
     private func showLoginErrorAlert() {
         print("[AuthViewController]: Показываем алерт об ошибке входа")
         let alert = UIAlertController(
-            title: "Что-то пошло не так(",
+            title: "Что-то пошло не так",
             message: "Не удалось войти в систему",
             preferredStyle: .alert
         )

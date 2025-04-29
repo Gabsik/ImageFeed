@@ -15,7 +15,7 @@ final class OAuth2Service {
     private var task: URLSessionTask?
     private var lastCode: String?
     
-    func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func fetchOAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void) {
         assert(Thread.isMainThread)
         
         if lastCode == code {

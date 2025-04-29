@@ -22,6 +22,7 @@
 		CE8E81AD2DBA5C5700EDD0B9 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CE8E81AC2DBA5C5700EDD0B9 /* Kingfisher */; };
 		CE8E81B02DBA708600EDD0B9 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CE8E81AF2DBA708600EDD0B9 /* SwiftKeychainWrapper */; };
 		CE8E81B22DBB829B00EDD0B9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E81B12DBB829B00EDD0B9 /* TabBarController.swift */; };
+		CE8E81B92DC127B700EDD0B9 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8E81B82DC127B600EDD0B9 /* WebKit.framework */; };
 		CECD5D4F2D80CD6B00F57007 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD5D4E2D80CD6B00F57007 /* ProfileViewController.swift */; };
 		CECD5D512D86BCD500F57007 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD5D502D86BCD500F57007 /* Constants.swift */; };
 		CECD5D532D89D0EB00F57007 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD5D522D89D0EB00F57007 /* AuthViewController.swift */; };
@@ -49,6 +50,7 @@
 		CE4DAEA22DA14F6A00670F86 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		CE4DAEA42DA9883A00670F86 /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
 		CE8E81B12DBB829B00EDD0B9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		CE8E81B82DC127B600EDD0B9 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		CECD5D4E2D80CD6B00F57007 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CECD5D502D86BCD500F57007 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CECD5D522D89D0EB00F57007 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			files = (
 				CE8E81AD2DBA5C5700EDD0B9 /* Kingfisher in Frameworks */,
 				CE603B892D9C5B3D0030C315 /* ProgressHUD in Frameworks */,
+				CE8E81B92DC127B700EDD0B9 /* WebKit.framework in Frameworks */,
 				CE8E81B02DBA708600EDD0B9 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,6 +108,7 @@
 			children = (
 				CE3613872D6B25960099EBC7 /* ImageFeed */,
 				CE3613862D6B25960099EBC7 /* Products */,
+				CE8E81B72DC127B600EDD0B9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -169,6 +173,14 @@
 				CE4DAEA02DA144E500670F86 /* UIBlockingProgressHUD.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		CE8E81B72DC127B600EDD0B9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CE8E81B82DC127B600EDD0B9 /* WebKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		CECD5D542D89D14C00F57007 /* Auth */ = {
