@@ -2,6 +2,10 @@
 import UIKit
 import WebKit
 
+enum WebViewConstants {
+    static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
+}
+
 final class WebViewViewController: UIViewController {
     
     @IBOutlet private var webView: WKWebView!
@@ -10,15 +14,33 @@ final class WebViewViewController: UIViewController {
     
     private var estimatedProgressObservation: NSKeyValueObservation?
     
-    enum WebViewConstants {
-        static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadAuthView()
+        
+        estimatedProgressObservation = webView.observe(
+            \.estimatedProgress,
+             options: [],
+             changeHandler: { [weak self] _, _ in
+                 guard let self = self else { return }
+                 self.updateProgress()
+             })
+        
         webView.navigationDelegate = self
-        addProgressObserver()
+        loadAuthView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //removeProgressObserver()
+    }
+    
+    private func updateProgress() {
+        progressView.progress = Float(webView.estimatedProgress)
+        progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
     }
     
     private func loadAuthView() {
@@ -40,33 +62,6 @@ final class WebViewViewController: UIViewController {
         let request = URLRequest(url: url)
         webView.load(request)
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        updateProgress()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        removeProgressObserver()
-    }
-    
-    private func addProgressObserver() {
-        estimatedProgressObservation = webView.observe(
-            \.estimatedProgress,
-             options: [.new]) { [weak self] webView, change in
-                 self?.updateProgress()
-             }
-    }
-    
-    private func removeProgressObserver() {
-        estimatedProgressObservation?.invalidate()
-    }
-    
-    private func updateProgress() {
-        progressView.progress = Float(webView.estimatedProgress)
-        progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
-    }
-    
 }
 
 extension WebViewViewController: WKNavigationDelegate {
@@ -85,17 +80,26 @@ extension WebViewViewController: WKNavigationDelegate {
     }
     
     private func code(from navigationAction: WKNavigationAction) -> String? {
-        if
-            let url = navigationAction.request.url,
-            let urlComponents = URLComponents(string: url.absoluteString),
-            urlComponents.path == "/oauth/authorize/native",
-            let items = urlComponents.queryItems,
-            let codeItem = items.first(where: { $0.name == "code" })
-        {
-            return codeItem.value
-        } else {
+        guard let url = navigationAction.request.url else {
+            print("No URL found in navigationAction.")
             return nil
         }
+        
+        guard let urlComponents = URLComponents(string: url.absoluteString) else {
+            print("Failed to get URLComponents from: ", url.absoluteString)
+            return nil
+        }
+        
+        guard urlComponents.path == "/oauth/authorize/native" else {
+            print("URL's do not match.")
+            return nil
+        }
+        
+        guard let codeItem = urlComponents.queryItems?.first(where: { $0.name == "code" }) else {
+            print("No such item as code found.")
+            return nil
+        }
+        
+        return codeItem.value
     }
-    
 }

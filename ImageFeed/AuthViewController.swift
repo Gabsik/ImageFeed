@@ -28,10 +28,17 @@ final class AuthViewController: UIViewController {
         navigationItem.backBarButtonItem?.tintColor = UIColor(named: "YP Black (iOS)")
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let webViewVC = segue.destination as? WebViewViewController {
-            webViewVC.delegate = self
-        }
-    }
+        if segue.identifier == showWebViewSegueIdentifier {
+                    guard
+                        let webViewViewController = segue.destination as? WebViewViewController
+                    else { assertionFailure("Failed to prepare for \(showWebViewSegueIdentifier)")
+                        return
+                    }
+                    webViewViewController.delegate = self
+                } else {
+                    super.prepare(for: segue, sender: sender)
+                }
+            }
 }
 
 extension AuthViewController: WebViewViewControllerDelegate {
@@ -50,26 +57,15 @@ extension AuthViewController: WebViewViewControllerDelegate {
                 self.delegate?.didAuthenticate(self)
             case .failure(let error):
                 print("[AuthViewController]: Ошибка авторизации - \(error.localizedDescription)")
-                self.showLoginErrorAlert()
+                let alert = UIAlertController(title: "Что-то пошло не так", message: "Не удалось войти в систему", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ок", style: .default))
+                self.present(alert, animated: true)
             }
         }
     }
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
         dismiss(animated: true)
-    }
-}
-
-extension AuthViewController {
-    private func showLoginErrorAlert() {
-        print("[AuthViewController]: Показываем алерт об ошибке входа")
-        let alert = UIAlertController(
-            title: "Что-то пошло не так",
-            message: "Не удалось войти в систему",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
     }
 }
 

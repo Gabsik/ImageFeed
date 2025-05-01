@@ -10,13 +10,23 @@ final class ProfileViewController: UIViewController {
     private let descriptionLabel = UILabel()
     private let logoutButton = UIButton()
     private let tokenStorage = OAuth2TokenStorage()
+    private var profileService = ProfileService.shared
     
     private var profileImageServiceObserver: NSObjectProtocol?
-    private var profileObserver: NSObjectProtocol?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.didChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            print("didChangeNotification received, updating avatar")
+            guard let self = self else { return }
+            self.updateAvatar()
+        }
+        
         addSubviewWithConstraints()
         setupImageView()
         setupNameLabel()
@@ -25,30 +35,26 @@ final class ProfileViewController: UIViewController {
         setupLogoutButton()
         view.backgroundColor = UIColor(named: "YP Black (iOS)")
         
+        //        guard let authToken = tokenStorage.token else {
+        //            print("No authorization token found.")
+        //            return
+        //        }
+        
         if let profile = ProfileService.shared.profile {
-            updateProfileDetails(profile: profile)
-        }
+                    updateProfileDetails(profile: profile)
+                }
         
-        profileImageServiceObserver = NotificationCenter.default.addObserver(
-            forName: ProfileImageService.didChangeNotification,
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            guard let self = self else { return }
-            self.updateAvatar()
-        }
+//        profileImageServiceObserver = NotificationCenter.default.addObserver(
+//            forName: ProfileImageService.didChangeNotification,
+//            object: nil,
+//            queue: .main
+//        ) { [weak self] _ in
+//            print("didChangeNotification received, updating avatar")
+//            guard let self = self else { return }
+//            self.updateAvatar()
+//        }
+//        updateProfileDetails()
         updateAvatar()
-        
-        profileObserver = NotificationCenter.default.addObserver(
-            forName: ProfileService.profileDidChange,
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            guard let self = self else { return }
-            if let profile = ProfileService.shared.profile {
-                self.updateProfileDetails(profile: profile)
-            }
-        }
     }
     
     private func addSubviewWithConstraints() {
@@ -120,12 +126,20 @@ final class ProfileViewController: UIViewController {
     }
     
     private func updateProfileDetails(profile: ProfileService.Profile) {
-        nameLabel.text = profile.name
-        loginNameLabel.text = profile.loginName
-        descriptionLabel.text = profile.bio
-    }
+            nameLabel.text = profile.name
+            loginNameLabel.text = profile.loginName
+            descriptionLabel.text = profile.bio
+        }
+//    func updateProfileDetails() {
+//        guard let profile = profileService.profile else { return }
+//
+//        nameLabel.text = profile.name
+//        loginNameLabel.text = profile.loginName
+//        descriptionLabel.text = profile.bio
+//    }
     
     private func updateAvatar() {
+        
         guard
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)
@@ -136,7 +150,18 @@ final class ProfileViewController: UIViewController {
             placeholder: UIImage(named: "placeholder"),
             options: [.transition(.fade(0.2))]
         )
+        //        guard let profileImageURL = ProfileImageService.shared.avatarURL else { return }
+        //
+        //        if let profileImageURL = URL(string: profileImageURL) {
+        //            let profileImageView = profileImageView
+        //            print("Loading avatar from URL:", profileImageURL)
+        //            profileImageView.kf.setImage(
+        //                with: profileImageURL,
+        //                placeholder: UIImage(named: "placeholder"),
+        //                options: [.forceRefresh]
+        //            )
+        //
+        //        }
     }
 }
-
 

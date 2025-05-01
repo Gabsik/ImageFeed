@@ -15,6 +15,11 @@ final class OAuth2Service {
     private var task: URLSessionTask?
     private var lastCode: String?
     
+    init(task: URLSessionTask? = nil, lastCode: String? = nil) {
+        self.task = task
+        self.lastCode = lastCode
+    }
+    
     func fetchOAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void) {
         assert(Thread.isMainThread)
         
@@ -32,7 +37,7 @@ final class OAuth2Service {
         let task = urlSession.objectTask(for: request) { (result: Result<OAuthTokenResponseBody, Error>) in
             switch result {
             case .success(let tokenResponse):
-                self.tokenStorage.token = tokenResponse.accessToken
+//                self.tokenStorage.token = tokenResponse.accessToken
                 print("Успешно получен и сохранен токен: \(tokenResponse.accessToken)")
                 completion(.success(tokenResponse.accessToken))
             case .failure(let error):
@@ -42,16 +47,12 @@ final class OAuth2Service {
             self.task = nil
             self.lastCode = nil
         }
-        
         self.task = task
         task.resume()
     }
     
     func makeOAuthTokenRequest(code: String) -> URLRequest? {
-        guard let baseURL = URL(string: "https://unsplash.com") else {
-            print("Ошибка: не удалось создать baseURL")
-            return nil
-        }
+        let baseURL = URL(string: Constants.baseURL)
         guard let url = URL(
             string: "/oauth/token"
             + "?client_id=\(Constants.accessKey)"

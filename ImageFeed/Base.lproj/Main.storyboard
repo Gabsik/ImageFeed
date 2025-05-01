@@ -122,7 +122,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tvA-y3-qQg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-428" y="584"/>
+            <point key="canvasLocation" x="-32" y="258"/>
         </scene>
         <!--ImageList-->
         <scene sceneID="tne-QT-ifu">
@@ -286,7 +286,6 @@
         <!--Navigation Controller-->
         <scene sceneID="sn8-fu-vgE">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="c5Y-Fz-j4r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RjF-Q6-3oG" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="9vp-1K-sDV"/>
@@ -299,6 +298,7 @@
                         <segue destination="qZf-4D-oOr" kind="relationship" relationship="rootViewController" id="2u9-X3-brW"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c5Y-Fz-j4r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-365" y="-510"/>
         </scene>

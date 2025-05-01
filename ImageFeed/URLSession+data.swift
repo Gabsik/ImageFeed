@@ -45,20 +45,19 @@ extension URLSession {
         completion: @escaping (Result<T, Error>) -> Void
     ) -> URLSessionTask {
         let decoder = JSONDecoder()
-        
         let task = data(for: request) { (result: Result<Data, Error>) in
             switch result {
             case .success(let data):
                 do {
-                    let decodedObject = try decoder.decode(T.self, from: data)
-                    completion(.success(decodedObject))
+                    let decodedResponse = try decoder.decode(T.self, from: data)
+                    completion(.success(decodedResponse))
                 } catch {
+                    print("Ошибка декодирования: \(error.localizedDescription), Данные: \(String(data: data, encoding: .utf8) ?? "")")
                     completion(.failure(error))
-                    print("[objectTask]: Ошибка декодирования: \(error.localizedDescription), Данные: \(String(data: data, encoding: .utf8) ?? "")")
                 }
             case .failure(let error):
+                print("Ошибка сетевого запроса: \(error.localizedDescription)")
                 completion(.failure(error))
-                print("[objectTask]: Сетевая ошибка: \(error.localizedDescription)")
             }
         }
         return task
