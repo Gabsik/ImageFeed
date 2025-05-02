@@ -89,6 +89,7 @@ final class ProfileService {
             }
             self?.task = nil
         }
+        self.task = task
         task.resume()
     }
     

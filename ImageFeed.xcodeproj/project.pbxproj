@@ -15,6 +15,9 @@
 		CE3613902D6B25960099EBC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE36138E2D6B25960099EBC7 /* Main.storyboard */; };
 		CE3613922D6B259B0099EBC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE3613912D6B259B0099EBC7 /* Assets.xcassets */; };
 		CE3613952D6B259B0099EBC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE3613932D6B259B0099EBC7 /* LaunchScreen.storyboard */; };
+		CE3E888B2DC4FF5B005DC61A /* ImagesListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E888A2DC4FF5B005DC61A /* ImagesListService.swift */; };
+		CE3E888D2DC501CE005DC61A /* PhotoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E888C2DC501CD005DC61A /* PhotoResult.swift */; };
+		CE3E888F2DC5077D005DC61A /* UrlsResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E888E2DC5077D005DC61A /* UrlsResult.swift */; };
 		CE4DAEA12DA144E500670F86 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DAEA02DA144E500670F86 /* UIBlockingProgressHUD.swift */; };
 		CE4DAEA32DA14F6B00670F86 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DAEA22DA14F6A00670F86 /* ProfileService.swift */; };
 		CE4DAEA52DA9883A00670F86 /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DAEA42DA9883A00670F86 /* ProfileImageService.swift */; };
@@ -46,6 +49,9 @@
 		CE3613912D6B259B0099EBC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE3613942D6B259B0099EBC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE3613962D6B259B0099EBC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE3E888A2DC4FF5B005DC61A /* ImagesListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListService.swift; sourceTree = "<group>"; };
+		CE3E888C2DC501CD005DC61A /* PhotoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResult.swift; sourceTree = "<group>"; };
+		CE3E888E2DC5077D005DC61A /* UrlsResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlsResult.swift; sourceTree = "<group>"; };
 		CE4DAEA02DA144E500670F86 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		CE4DAEA22DA14F6A00670F86 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		CE4DAEA42DA9883A00670F86 /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
@@ -121,6 +127,9 @@
 				CE3613912D6B259B0099EBC7 /* Assets.xcassets */,
 				CE36138E2D6B25960099EBC7 /* Main.storyboard */,
 				CE3613932D6B259B0099EBC7 /* LaunchScreen.storyboard */,
+				CE3E888A2DC4FF5B005DC61A /* ImagesListService.swift */,
+				CE3E888C2DC501CD005DC61A /* PhotoResult.swift */,
+				CE3E888E2DC5077D005DC61A /* UrlsResult.swift */,
 			);
 			path = ImageFeed;
 			sourceTree = "<group>";
@@ -218,10 +227,13 @@
 				CECD5D5A2D89EF3800F57007 /* WebViewViewControllerDelegate.swift in Sources */,
 				CE36138D2D6B25960099EBC7 /* ImagesListViewController.swift in Sources */,
 				CE4DAEA12DA144E500670F86 /* UIBlockingProgressHUD.swift in Sources */,
+				CE3E888F2DC5077D005DC61A /* UrlsResult.swift in Sources */,
 				CE1C2D2C2D6CCF190085908C /* ImagesListCell.swift in Sources */,
+				CE3E888B2DC4FF5B005DC61A /* ImagesListService.swift in Sources */,
 				CECD5D7C2D9178CE00F57007 /* OAuth2Service.swift in Sources */,
 				CE3613892D6B25960099EBC7 /* AppDelegate.swift in Sources */,
 				CE4DAEA32DA14F6B00670F86 /* ProfileService.swift in Sources */,
+				CE3E888D2DC501CE005DC61A /* PhotoResult.swift in Sources */,
 				CECD5D532D89D0EB00F57007 /* AuthViewController.swift in Sources */,
 				CECD5D512D86BCD500F57007 /* Constants.swift in Sources */,
 				CE8E81B22DBB829B00EDD0B9 /* TabBarController.swift in Sources */,
