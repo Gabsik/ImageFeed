@@ -19,7 +19,6 @@
 		CE4DAEA32DA14F6B00670F86 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DAEA22DA14F6A00670F86 /* ProfileService.swift */; };
 		CE4DAEA52DA9883A00670F86 /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DAEA42DA9883A00670F86 /* ProfileImageService.swift */; };
 		CE603B892D9C5B3D0030C315 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = CE603B882D9C5B3D0030C315 /* ProgressHUD */; };
-		CE850B172DC39615007C70FA /* AppLaunchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE850B162DC39615007C70FA /* AppLaunchManager.swift */; };
 		CE8E81AD2DBA5C5700EDD0B9 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CE8E81AC2DBA5C5700EDD0B9 /* Kingfisher */; };
 		CE8E81B02DBA708600EDD0B9 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = CE8E81AF2DBA708600EDD0B9 /* SwiftKeychainWrapper */; };
 		CE8E81B22DBB829B00EDD0B9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E81B12DBB829B00EDD0B9 /* TabBarController.swift */; };
@@ -50,7 +49,6 @@
 		CE4DAEA02DA144E500670F86 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		CE4DAEA22DA14F6A00670F86 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		CE4DAEA42DA9883A00670F86 /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
-		CE850B162DC39615007C70FA /* AppLaunchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLaunchManager.swift; sourceTree = "<group>"; };
 		CE8E81B12DBB829B00EDD0B9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		CE8E81B82DC127B600EDD0B9 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		CECD5D4E2D80CD6B00F57007 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 				CE3613912D6B259B0099EBC7 /* Assets.xcassets */,
 				CE36138E2D6B25960099EBC7 /* Main.storyboard */,
 				CE3613932D6B259B0099EBC7 /* LaunchScreen.storyboard */,
-				CE850B162DC39615007C70FA /* AppLaunchManager.swift */,
 			);
 			path = ImageFeed;
 			sourceTree = "<group>";
@@ -225,7 +222,6 @@
 				CECD5D7C2D9178CE00F57007 /* OAuth2Service.swift in Sources */,
 				CE3613892D6B25960099EBC7 /* AppDelegate.swift in Sources */,
 				CE4DAEA32DA14F6B00670F86 /* ProfileService.swift in Sources */,
-				CE850B172DC39615007C70FA /* AppLaunchManager.swift in Sources */,
 				CECD5D532D89D0EB00F57007 /* AuthViewController.swift in Sources */,
 				CECD5D512D86BCD500F57007 /* Constants.swift in Sources */,
 				CE8E81B22DBB829B00EDD0B9 /* TabBarController.swift in Sources */,

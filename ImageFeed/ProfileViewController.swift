@@ -130,13 +130,6 @@ final class ProfileViewController: UIViewController {
             loginNameLabel.text = profile.loginName
             descriptionLabel.text = profile.bio
         }
-//    func updateProfileDetails() {
-//        guard let profile = profileService.profile else { return }
-//
-//        nameLabel.text = profile.name
-//        loginNameLabel.text = profile.loginName
-//        descriptionLabel.text = profile.bio
-//    }
     
     private func updateAvatar() {
         
@@ -150,18 +143,6 @@ final class ProfileViewController: UIViewController {
             placeholder: UIImage(named: "placeholder"),
             options: [.transition(.fade(0.2))]
         )
-        //        guard let profileImageURL = ProfileImageService.shared.avatarURL else { return }
-        //
-        //        if let profileImageURL = URL(string: profileImageURL) {
-        //            let profileImageView = profileImageView
-        //            print("Loading avatar from URL:", profileImageURL)
-        //            profileImageView.kf.setImage(
-        //                with: profileImageURL,
-        //                placeholder: UIImage(named: "placeholder"),
-        //                options: [.forceRefresh]
-        //            )
-        //
-        //        }
     }
 }
 
