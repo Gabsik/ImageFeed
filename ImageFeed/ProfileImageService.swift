@@ -16,6 +16,31 @@ final class ProfileImageService {
     private let urlSession = URLSession.shared
     static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
     
+    struct UserResult: Codable {
+        let profileImages: [String: String]?
+        
+        enum CodingKeys: String, CodingKey {
+            case profileImages = "profile_image"
+        }
+        
+        static func decode(from data: Data) -> Result<String, Error> {
+            let decoder = JSONDecoder()
+            
+            do {
+                let decodedProfileImages = try decoder.decode(UserResult.self, from: data)
+                
+                guard let profileImages = decodedProfileImages.profileImages else { return .failure(ProfileImageServiceError.decodingFailed) }
+                guard let smallProfileImage = profileImages["small"] else { return .failure(ProfileImageServiceError.decodingFailed) }
+                
+                return .success(smallProfileImage)
+            } catch {
+                print("Error decoding")
+                return .failure(error)
+            }
+        }
+    }
+        
+    
     private init() {}
     
     func fetchProfileImageURL(username: String, _ completion: @escaping (Result<String, Error>) -> Void) {
@@ -62,20 +87,20 @@ final class ProfileImageService {
 
 struct UserResult: Codable {
     let profileImages: [String: String]?
-    
+
     enum CodingKeys: String, CodingKey {
         case profileImages = "profile_image"
     }
-    
+
     static func decode(from data: Data) -> Result<String, Error> {
         let decoder = JSONDecoder()
-        
+
         do {
             let decodedProfileImages = try decoder.decode(UserResult.self, from: data)
-            
+
             guard let profileImages = decodedProfileImages.profileImages else { return .failure(ProfileImageServiceError.decodingFailed) }
             guard let smallProfileImage = profileImages["small"] else { return .failure(ProfileImageServiceError.decodingFailed) }
-            
+
             return .success(smallProfileImage)
         } catch {
             print("Error decoding")
