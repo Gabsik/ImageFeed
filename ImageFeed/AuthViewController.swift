@@ -27,18 +27,21 @@ final class AuthViewController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem?.tintColor = UIColor(named: "YP Black (iOS)")
     }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showWebViewSegueIdentifier {
-                    guard
-                        let webViewViewController = segue.destination as? WebViewViewController
-                    else { assertionFailure("Failed to prepare for \(showWebViewSegueIdentifier)")
-                        return
-                    }
-                    webViewViewController.delegate = self
-                } else {
-                    super.prepare(for: segue, sender: sender)
-                }
+            guard
+                let webViewViewController = segue.destination as? WebViewViewController
+            else { assertionFailure("Failed to prepare for \(showWebViewSegueIdentifier)")
+                return
             }
+            webViewViewController.modalPresentationStyle = .fullScreen
+            webViewViewController.delegate = self
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
 }
 
 extension AuthViewController: WebViewViewControllerDelegate {
