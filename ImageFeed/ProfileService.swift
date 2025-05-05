@@ -128,4 +128,7 @@ final class ProfileService {
             return .failure(error)
         }
     }
+    func clearData() {
+            profile = nil
+        }
 }

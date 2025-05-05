@@ -39,7 +39,7 @@ final class ProfileImageService {
             }
         }
     }
-        
+    
     
     private init() {}
     
@@ -61,7 +61,7 @@ final class ProfileImageService {
         request.httpMethod = "GET"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
-         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<UserResult, Error>) in
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<UserResult, Error>) in
             
             switch result {
             case .success(let decodedResponse):
@@ -83,24 +83,24 @@ final class ProfileImageService {
         task.resume()
     }
 }
-                
+
 
 struct UserResult: Codable {
     let profileImages: [String: String]?
-
+    
     enum CodingKeys: String, CodingKey {
         case profileImages = "profile_image"
     }
-
+    
     static func decode(from data: Data) -> Result<String, Error> {
         let decoder = JSONDecoder()
-
+        
         do {
             let decodedProfileImages = try decoder.decode(UserResult.self, from: data)
-
+            
             guard let profileImages = decodedProfileImages.profileImages else { return .failure(ProfileImageServiceError.decodingFailed) }
             guard let smallProfileImage = profileImages["small"] else { return .failure(ProfileImageServiceError.decodingFailed) }
-
+            
             return .success(smallProfileImage)
         } catch {
             print("Error decoding")
