@@ -18,7 +18,7 @@ final class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBackButton()
-        view.backgroundColor = UIColor(named: "YP Black (iOS)")
+        //view.backgroundColor = UIColor(named: "YP Black (iOS)")
     }
     
     private func configureBackButton() {
@@ -44,8 +44,8 @@ final class AuthViewController: UIViewController {
 
 extension AuthViewController: WebViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        
-        vc.dismiss(animated: true)
+        vc.navigationController?.popViewController(animated: true)
+        //vc.dismiss(animated: true)
         showLoading()
         
         authService.fetchOAuthToken(code: code) { [weak self] token in
@@ -67,7 +67,12 @@ extension AuthViewController: WebViewViewControllerDelegate {
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
         dismiss(animated: true)
+        //vc.navigationController?.popViewController(animated: true)
     }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        navigationController?.setNavigationBarHidden(true, animated: false)
+//    }
 }
 
 extension AuthViewController {

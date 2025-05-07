@@ -12,7 +12,7 @@ final class ProfileLogoutService {
         cleanCookies()
         
         let splashViewController = SplashViewController()
-        splashViewController.modalPresentationStyle = .overFullScreen
+        splashViewController.modalPresentationStyle = .fullScreen
         UIApplication.shared.windows.first?.rootViewController?.present(splashViewController, animated: true, completion: nil)
     }
     

@@ -42,7 +42,11 @@ final class SingleImageViewController: UIViewController {
         imageView.kf.setImage(with: url) { result in
             switch result {
             case .success(let value):
-                print("Task done for \(value.source.url!)")
+                if let safeUrl = value.source.url {
+                    print("Task done for \(safeUrl)")
+                } else {
+                    print("Task done, but URL is nil")
+                }
                 self.imageView.subviews.last?.removeFromSuperview()
                 UIBlockingProgressHUD.dismiss()
                 

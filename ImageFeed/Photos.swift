@@ -28,24 +28,25 @@ struct PhotoURLs: Codable {
     let full: String
 }
 
-extension ImagesListService {
-    func convertToPhotos(from photoResults: [PhotoResult]) -> [Photo] {
-        return photoResults.compactMap { photoResult in
-            let createdAt = photoResult.createdAt.flatMap {
-                ISO8601DateFormatter().date(from: $0)
-            }
-            
-            let size = CGSize(width: photoResult.width, height: photoResult.height)
-            
-            return Photo(
-                id: photoResult.id,
-                size: size,
-                createdAt: createdAt,
-                description: photoResult.description,
-                thumbImageURL: photoResult.urls.thumb,
-                largeImageURL: photoResult.urls.full,
-                isLiked: photoResult.likedByUser
-            )
-        }
-    }
-}
+//extension ImagesListService {
+//    func convertToPhotos(from photoResults: [PhotoResult]) -> [Photo] {
+//        return photoResults.compactMap { photoResult in
+////            let createdAt = photoResult.createdAt.flatMap {
+////                ISO8601DateFormatter().date(from: $0)
+////            }
+//            let date: Date? = dateFormatter.date(from: response.createdAt)
+//            
+//            let size = CGSize(width: photoResult.width, height: photoResult.height)
+//
+//            return Photo(
+//                id: photoResult.id,
+//                size: size,
+//                createdAt: date,
+//                description: photoResult.description,
+//                thumbImageURL: photoResult.urls.thumb,
+//                largeImageURL: photoResult.urls.full,
+//                isLiked: photoResult.likedByUser
+//            )
+//        }
+//    }
+//}
