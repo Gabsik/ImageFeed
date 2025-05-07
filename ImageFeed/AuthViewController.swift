@@ -26,6 +26,27 @@ final class AuthViewController: UIViewController {
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "nav_back_button")
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem?.tintColor = UIColor(named: "YP Black (iOS)")
+        
+//        let backButton = UIButton(type: .system)
+//        let backImage = UIImage(named: "nav_back_button") // Системная стрелка
+//        backButton.setImage(backImage, for: .normal)
+//        backButton.tintColor = .white // Цвет стрелки
+//        backButton.translatesAutoresizingMaskIntoConstraints = false
+//        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+//        view.addSubview(backButton)
+//
+//        // Констрейнты
+//        NSLayoutConstraint.activate([
+//            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+//            backButton.widthAnchor.constraint(equalToConstant: 32),
+//            backButton.heightAnchor.constraint(equalToConstant: 32)
+//        ])
+    }
+    
+    @objc private func backButtonTapped() {
+        //navigationController?.popViewController(animated: true)
+          dismiss(animated: true)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showWebViewSegueIdentifier {
@@ -44,7 +65,8 @@ final class AuthViewController: UIViewController {
 
 extension AuthViewController: WebViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        vc.navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
+//        vc.navigationController?.popViewController(animated: true)
         //vc.dismiss(animated: true)
         showLoading()
         

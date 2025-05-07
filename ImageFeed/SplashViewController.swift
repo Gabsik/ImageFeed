@@ -29,7 +29,7 @@ final class SplashViewController: UIViewController {
             guard let authViewController = viewController else { return }
             authViewController.delegate = self
             
-            authViewController.modalPresentationStyle = .overFullScreen
+            authViewController.modalPresentationStyle = .fullScreen
             self.present(authViewController, animated: true)
         }
     }

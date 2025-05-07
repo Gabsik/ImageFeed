@@ -16,6 +16,7 @@ final class WebViewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        webView.navigationDelegate = self
         
         estimatedProgressObservation = webView.observe(
             \.estimatedProgress,
@@ -27,6 +28,26 @@ final class WebViewViewController: UIViewController {
         
         webView.navigationDelegate = self
         loadAuthView()
+        
+        let backButton = UIButton(type: .system)
+        let backImage = UIImage(named: "nav_back_button") // Системная стрелка
+        backButton.setImage(backImage, for: .normal)
+        //backButton.tintColor =  // Цвет стрелки
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        view.addSubview(backButton)
+
+        // Констрейнты
+        NSLayoutConstraint.activate([
+            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            backButton.widthAnchor.constraint(equalToConstant: 32),
+            backButton.heightAnchor.constraint(equalToConstant: 32)
+        ])
+    }
+    @objc private func backButtonTapped() {
+        //navigationController?.popViewController(animated: true)
+          dismiss(animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
