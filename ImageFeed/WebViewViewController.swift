@@ -37,7 +37,6 @@ final class WebViewViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         view.addSubview(backButton)
 
-        // Констрейнты
         NSLayoutConstraint.activate([
             backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -46,7 +45,6 @@ final class WebViewViewController: UIViewController {
         ])
     }
     @objc private func backButtonTapped() {
-        //navigationController?.popViewController(animated: true)
           dismiss(animated: true)
     }
     

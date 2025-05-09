@@ -9,7 +9,6 @@ enum Constants {
     static let photosPath = "/photos"
     static let defaultIBaseURLString = "https://api.unsplash.com/"
     static let userProfilePath = "/users"
-    //static let defaultBaseURL = URL(string: "https://api.unsplash.com/")
     static let baseURL = "https://unsplash.com"
     static let photosURL = defaultBaseURL.appendingPathComponent(photosPath)
     
