@@ -18,6 +18,7 @@ final class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBackButton()
+        view.backgroundColor = UIColor(named: "YP Black (iOS)")
     }
     
     private func configureBackButton() {
@@ -43,7 +44,8 @@ final class AuthViewController: UIViewController {
 
 extension AuthViewController: WebViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        dismiss(animated: true)
+        vc.dismiss(animated: true)
+        //dismiss(animated: true)
         showLoading()
         
         authService.fetchOAuthToken(code: code) { [weak self] token in
