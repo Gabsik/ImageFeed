@@ -32,7 +32,6 @@ final class WebViewViewController: UIViewController {
         let backButton = UIButton(type: .system)
         let backImage = UIImage(named: "nav_back_button") // Системная стрелка
         backButton.setImage(backImage, for: .normal)
-        //backButton.tintColor =  // Цвет стрелки
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         view.addSubview(backButton)
