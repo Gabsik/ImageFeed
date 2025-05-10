@@ -1,5 +1,6 @@
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
@@ -8,15 +9,38 @@ final class ProfileViewController: UIViewController {
     private let loginNameLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let logoutButton = UIButton()
+    private let tokenStorage = OAuth2TokenStorage()
+    private var profileService = ProfileService.shared
+    private var imagesListService = ImagesListService.shared
+    
+    private var profileImageServiceObserver: NSObjectProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.didChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            print("didChangeNotification received, updating avatar")
+            guard let self = self else { return }
+            self.updateAvatar()
+        }
+        
         addSubviewWithConstraints()
         setupImageView()
         setupNameLabel()
         setupLoginNameLabel()
         setupDescriptionLabel()
         setupLogoutButton()
+        view.backgroundColor = UIColor(named: "YP Black (iOS)")
+        
+        
+        if let profile = ProfileService.shared.profile {
+            updateProfileDetails(profile: profile)
+        }
+        updateAvatar()
     }
     
     private func addSubviewWithConstraints() {
@@ -29,11 +53,11 @@ final class ProfileViewController: UIViewController {
             view.addSubview($0)
         }
     }
-
+    
     private func setupImageView() {
         let profilImage = UIImage(named: "avatar")
         imageViewProfile.image = profilImage
-                        
+        
         NSLayoutConstraint.activate([
             imageViewProfile.widthAnchor.constraint(equalToConstant: 70),
             imageViewProfile.heightAnchor.constraint(equalToConstant: 70),
@@ -85,5 +109,37 @@ final class ProfileViewController: UIViewController {
             logoutButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 99),
             logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
+        logoutButton.addTarget(self, action: #selector(didTapLogoutButton), for: .touchUpInside)
+    }
+    
+    private func updateProfileDetails(profile: ProfileService.Profile) {
+        nameLabel.text = profile.name
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
+    }
+    
+    private func updateAvatar() {
+        
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        
+        imageViewProfile.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "placeholder"),
+            options: [.transition(.fade(0.2))]
+        )
+    }
+    
+    private func showLogoutAlert() {
+        ProfileLogoutService.shared.showLogoutAlert(from: self)
+    }
+    @objc private func didTapLogoutButton() {
+        profileService.clearData()
+        imagesListService.clearData()
+        tokenStorage.clearStorage()
+        showLogoutAlert()
     }
 }
+
