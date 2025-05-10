@@ -36,8 +36,8 @@ final class AuthViewController: UIViewController {
             else { assertionFailure("Failed to prepare for \(showWebViewSegueIdentifier)")
                 return
             }
-            webViewViewController.modalPresentationStyle = .fullScreen
             webViewViewController.delegate = self
+            webViewViewController.modalPresentationStyle = .fullScreen
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -46,8 +46,8 @@ final class AuthViewController: UIViewController {
 
 extension AuthViewController: WebViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        
         vc.dismiss(animated: true)
+        //dismiss(animated: true)
         showLoading()
         
         authService.fetchOAuthToken(code: code) { [weak self] token in

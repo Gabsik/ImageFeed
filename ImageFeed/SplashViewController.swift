@@ -17,7 +17,6 @@ final class SplashViewController: UIViewController {
         view.backgroundColor = UIColor(named: "YP Black (iOS)")
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -35,23 +34,6 @@ final class SplashViewController: UIViewController {
         }
     }
     
-    //    override func viewDidAppear(_ animated: Bool) {
-    //        super.viewDidAppear(animated)
-    //
-    //        if let token =  oauth2TokenStorage.token {
-    //            fetchProfile(token)
-    //        } else {
-    //            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //            guard let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController else {
-    //                assertionFailure("Unable to instantiate AuthViewController")
-    //                return
-    //            }
-    //            authViewController.delegate = self
-    //            authViewController.modalPresentationStyle = .fullScreen
-    //            present(authViewController, animated: true)
-    //        }
-    //    }
-    
     private func switchToTabBarController() {
         guard let window = UIApplication.shared.windows.first else {
             assertionFailure("Invalid Configuration")
@@ -66,7 +48,6 @@ final class SplashViewController: UIViewController {
 extension SplashViewController: AuthViewControllerDelegate {
     func didAuthenticate(_ vc: AuthViewController) {
         vc.dismiss(animated: true)
-        //        switchToTabBarController()
         
         guard let token = oauth2TokenStorage.token else {
             return

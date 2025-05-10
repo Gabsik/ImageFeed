@@ -11,6 +11,7 @@ final class ProfileViewController: UIViewController {
     private let logoutButton = UIButton()
     private let tokenStorage = OAuth2TokenStorage()
     private var profileService = ProfileService.shared
+    private var imagesListService = ImagesListService.shared
     
     private var profileImageServiceObserver: NSObjectProtocol?
     
@@ -35,25 +36,10 @@ final class ProfileViewController: UIViewController {
         setupLogoutButton()
         view.backgroundColor = UIColor(named: "YP Black (iOS)")
         
-        //        guard let authToken = tokenStorage.token else {
-        //            print("No authorization token found.")
-        //            return
-        //        }
         
         if let profile = ProfileService.shared.profile {
-                    updateProfileDetails(profile: profile)
-                }
-        
-//        profileImageServiceObserver = NotificationCenter.default.addObserver(
-//            forName: ProfileImageService.didChangeNotification,
-//            object: nil,
-//            queue: .main
-//        ) { [weak self] _ in
-//            print("didChangeNotification received, updating avatar")
-//            guard let self = self else { return }
-//            self.updateAvatar()
-//        }
-//        updateProfileDetails()
+            updateProfileDetails(profile: profile)
+        }
         updateAvatar()
     }
     
@@ -123,13 +109,14 @@ final class ProfileViewController: UIViewController {
             logoutButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 99),
             logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
+        logoutButton.addTarget(self, action: #selector(didTapLogoutButton), for: .touchUpInside)
     }
     
     private func updateProfileDetails(profile: ProfileService.Profile) {
-            nameLabel.text = profile.name
-            loginNameLabel.text = profile.loginName
-            descriptionLabel.text = profile.bio
-        }
+        nameLabel.text = profile.name
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
+    }
     
     private func updateAvatar() {
         
@@ -143,6 +130,16 @@ final class ProfileViewController: UIViewController {
             placeholder: UIImage(named: "placeholder"),
             options: [.transition(.fade(0.2))]
         )
+    }
+    
+    private func showLogoutAlert() {
+        ProfileLogoutService.shared.showLogoutAlert(from: self)
+    }
+    @objc private func didTapLogoutButton() {
+        profileService.clearData()
+        imagesListService.clearData()
+        tokenStorage.clearStorage()
+        showLogoutAlert()
     }
 }
 

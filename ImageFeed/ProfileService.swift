@@ -13,10 +13,6 @@ final class ProfileService {
     private var task: URLSessionTask?
     private(set) var profile: Profile?
     private let urlSession = URLSession.shared
-    //private var currentToken: String?
-    //private let tokenStorage = OAuth2TokenStorage()
-    
-    //static let profileDidChange = Notification.Name("ProfileDidChange")
     
     struct ProfileResult: Codable {
         let username: String?
@@ -89,6 +85,7 @@ final class ProfileService {
             }
             self?.task = nil
         }
+        self.task = task
         task.resume()
     }
     
@@ -127,4 +124,7 @@ final class ProfileService {
             return .failure(error)
         }
     }
+    func clearData() {
+            profile = nil
+        }
 }
