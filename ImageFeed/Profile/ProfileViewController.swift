@@ -11,11 +11,11 @@ public protocol ProfileViewControllerProtocol: AnyObject {
 
 final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     
-    private let imageViewProfile = UIImageView()
-    private let nameLabel = UILabel()
-    private let loginNameLabel = UILabel()
-    private let descriptionLabel = UILabel()
-    private let logoutButton = UIButton()
+     let imageViewProfile = UIImageView()
+     let nameLabel = UILabel()
+     let loginNameLabel = UILabel()
+     let descriptionLabel = UILabel()
+     let logoutButton = UIButton()
 //    private let tokenStorage = OAuth2TokenStorage()
 //    private var profileService = ProfileService.shared
 //    private var imagesListService = ImagesListService.shared
@@ -38,7 +38,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
 //            guard let self = self else { return }
 //            self.updateAvatar()
 //        }
-        setupPresenter()
+        //setupPresenter()
         setupUI()
         setupObservers()
         presenter?.viewDidLoad()
@@ -50,12 +50,6 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     
     deinit {
             removeObservers()
-        }
-    
-    private func setupPresenter() {
-            let presenter = ProfilePresenter()
-            self.presenter = presenter
-            presenter.view = self
         }
     
     private func setupUI() {
@@ -199,7 +193,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
 //        tokenStorage.clearStorage()
 //        showLogoutAlert()
 //    }
-    @objc private func didTapLogoutButton() {
+    @objc func didTapLogoutButton() {
             presenter?.logoutButtonPressed()
         }
 }
