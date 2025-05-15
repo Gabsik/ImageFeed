@@ -55,14 +55,36 @@ class ProfilePresenterTests: XCTestCase {
         final class MockProfileImageService: ProfileImageServiceProtocol {
             var avatarURL: String? = "https://example.com/avatar.jpg"
         }
+    
+    final class MockImagesListService: ImagesListServiceProtocol {
+        var photos: [Photo] = []
 
-        final class MockImagesListService: ImagesListServiceProtocol {
-            var clearDataCalled = false
+        var clearDataCalled = false
+        var didFetchPhotos = false
+        var didChangeLike = false
 
-            func clearData() {
-                clearDataCalled = true
-            }
+        func fetchPhotosNextPage(completion: @escaping (Result<Void, Error>) -> Void) {
+            didFetchPhotos = true
+            completion(.success(())) // или .failure(MockError())
         }
+
+        func changeLike(photoId: String, isLike: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
+            didChangeLike = true
+            completion(.success(()))
+        }
+
+        func clearData() {
+            clearDataCalled = true
+        }
+    }
+
+//        final class MockImagesListService: ImagesListServiceProtocol {
+//            var clearDataCalled = false
+//
+//            func clearData() {
+//                clearDataCalled = true
+//            }
+//        }
 
         // MARK: - Tests
 

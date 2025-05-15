@@ -29,6 +29,7 @@ final class WebViewViewController: UIViewController, WebViewViewControllerProtoc
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        webView.accessibilityIdentifier = "UnsplashWebView"
         webView.navigationDelegate = self
         
         estimatedProgressObservation = webView.observe(
@@ -47,6 +48,7 @@ final class WebViewViewController: UIViewController, WebViewViewControllerProtoc
         let backButton = UIButton(type: .system)
         let backImage = UIImage(named: "nav_back_button")
         backButton.setImage(backImage, for: .normal)
+        backButton.restorationIdentifier = "BackButton"
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         view.addSubview(backButton)

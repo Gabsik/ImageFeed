@@ -90,6 +90,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     }
     
     private func setupImageView() {
+        
         let profilImage = UIImage(named: "avatar")
         imageViewProfile.image = profilImage
         
@@ -99,6 +100,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
             imageViewProfile.topAnchor.constraint(equalTo: view.topAnchor, constant: 76),
             imageViewProfile.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ])
+        imageViewProfile.accessibilityIdentifier = "ProfileAvatar"
     }
     
     private func setupNameLabel() {
@@ -114,6 +116,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     }
     
     private func setupLoginNameLabel() {
+        loginNameLabel.accessibilityIdentifier = "userLoginName"
         loginNameLabel.text = "@ekaterina_nov"
         loginNameLabel.font = UIFont.systemFont(ofSize: 13)
         loginNameLabel.textColor = UIColor(named: "YP Gray (iOS)")
@@ -125,6 +128,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     }
     
     private func setupDescriptionLabel() {
+        descriptionLabel.accessibilityIdentifier = "ProfileDescription"
         descriptionLabel.text = "Hello, world!"
         descriptionLabel.font = UIFont.systemFont(ofSize: 13)
         descriptionLabel.textColor = UIColor(named: "YP White (iOS)")
@@ -145,6 +149,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
             logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
         logoutButton.addTarget(self, action: #selector(didTapLogoutButton), for: .touchUpInside)
+        logoutButton.accessibilityIdentifier = "LogoutButton"
     }
     
     private func setupObservers() {
