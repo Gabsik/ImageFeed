@@ -6,7 +6,19 @@ enum ProfileServiceError: Error {
     case missingToken
 }
 
-final class ProfileService {
+struct Profile: Decodable {
+    var username: String?
+    var name: String?
+    var loginName: String?
+    var bio: String?
+}
+
+protocol ProfileServiceProtocol {
+    var profile: Profile? { get }
+    func clearData()
+}
+
+final class ProfileService: ProfileServiceProtocol {
     static let shared = ProfileService()
     private init() {}
     
@@ -28,12 +40,12 @@ final class ProfileService {
         }
     }
     
-    struct Profile: Decodable {
-        var username: String?
-        var name: String?
-        var loginName: String?
-        var bio: String?
-    }
+//    struct Profile: Decodable {
+//        var username: String?
+//        var name: String?
+//        var loginName: String?
+//        var bio: String?
+//    }
     
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
         
