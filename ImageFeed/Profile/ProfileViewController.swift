@@ -11,14 +11,11 @@ public protocol ProfileViewControllerProtocol: AnyObject {
 
 final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     
-     let imageViewProfile = UIImageView()
-     let nameLabel = UILabel()
-     let loginNameLabel = UILabel()
-     let descriptionLabel = UILabel()
-     let logoutButton = UIButton()
-//    private let tokenStorage = OAuth2TokenStorage()
-//    private var profileService = ProfileService.shared
-//    private var imagesListService = ImagesListService.shared
+    let imageViewProfile = UIImageView()
+    let nameLabel = UILabel()
+    let loginNameLabel = UILabel()
+    let descriptionLabel = UILabel()
+    let logoutButton = UIButton()
     
     var presenter: ProfilePresenterProtocol?
     
@@ -26,57 +23,41 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-//        profileImageServiceObserver = NotificationCenter.default.addObserver(
-//            forName: ProfileImageService.didChangeNotification,
-//            object: nil,
-//            queue: .main
-//        ) { [weak self] _ in
-//            print("didChangeNotification received, updating avatar")
-//            guard let self = self else { return }
-//            self.updateAvatar()
-//        }
-        //setupPresenter()
         setupUI()
         setupObservers()
         presenter?.viewDidLoad()
-//        if let profile = ProfileService.shared.profile {
-//            updateProfileDetails(profile: profile)
-//        }
-        //updateAvatar()
+        
     }
     
     deinit {
-            removeObservers()
-        }
+        removeObservers()
+    }
     
     private func setupUI() {
-            view.backgroundColor = UIColor(named: "YP Black (iOS)")
-            addSubviewWithConstraints()
-            setupImageView()
-            setupNameLabel()
-            setupLoginNameLabel()
-            setupDescriptionLabel()
-            setupLogoutButton()
-        }
+        view.backgroundColor = UIColor(named: "YP Black (iOS)")
+        addSubviewWithConstraints()
+        setupImageView()
+        setupNameLabel()
+        setupLoginNameLabel()
+        setupDescriptionLabel()
+        setupLogoutButton()
+    }
     
     func updateAvatar(url: URL?, placeholder: UIImage?) {
-            guard let url = url else { return }
-            
-            imageViewProfile.kf.setImage(
-                with: url,
-                placeholder: placeholder,
-                options: [.transition(.fade(0.2))]
-            )
-        }
+        guard let url = url else { return }
+        
+        imageViewProfile.kf.setImage(
+            with: url,
+            placeholder: placeholder,
+            options: [.transition(.fade(0.2))]
+        )
+    }
     
     func updateProfileDetails(name: String?, loginName: String?, bio: String?) {
-            nameLabel.text = name
-            loginNameLabel.text = loginName
-            descriptionLabel.text = bio
-        }
+        nameLabel.text = name
+        loginNameLabel.text = loginName
+        descriptionLabel.text = bio
+    }
     
     private func addSubviewWithConstraints() {
         [nameLabel,
@@ -153,53 +134,27 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     }
     
     private func setupObservers() {
-            profileImageServiceObserver = NotificationCenter.default.addObserver(
-                forName: ProfileImageService.didChangeNotification,
-                object: nil,
-                queue: .main
-            ) { [weak self] _ in
-                guard let self = self else { return }
-                self.presenter?.updateAvatar()
-            }
-        //presenter?.updateAvatar()
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.didChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.presenter?.updateAvatar()
         }
+    }
     
     private func removeObservers() {
-            if let observer = profileImageServiceObserver {
-                NotificationCenter.default.removeObserver(observer)
-            }
+        if let observer = profileImageServiceObserver {
+            NotificationCenter.default.removeObserver(observer)
         }
+    }
     
-//    private func updateProfileDetails(profile: ProfileService.Profile) {
-//        nameLabel.text = profile.name
-//        loginNameLabel.text = profile.loginName
-//        descriptionLabel.text = profile.bio
-//    }
-    
-//    private func updateAvatar() {
-//        guard
-//            let profileImageURL = ProfileImageService.shared.avatarURL,
-//            let url = URL(string: profileImageURL)
-//        else { return }
-//
-//        imageViewProfile.kf.setImage(
-//            with: url,
-//            placeholder: UIImage(named: "placeholder"),
-//            options: [.transition(.fade(0.2))]
-//        )
-//    }
-    
-     func showLogoutAlert() {
+    func showLogoutAlert() {
         ProfileLogoutService.shared.showLogoutAlert(from: self)
     }
-//    @objc private func didTapLogoutButton() {
-//        profileService.clearData()
-//        imagesListService.clearData()
-//        tokenStorage.clearStorage()
-//        showLogoutAlert()
-//    }
     @objc func didTapLogoutButton() {
-            presenter?.logoutButtonPressed()
-        }
+        presenter?.logoutButtonPressed()
+    }
 }
 
